@@ -15,7 +15,7 @@
 # gem 'pg'
 #
 default: &default
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
@@ -23,6 +23,8 @@ default: &default
 
 development:
   <<: *default
+  adapter: postgis
+  schema_search_path: public
   database: farmage_api_development
 
   # The specified database role being used to connect to postgres.
