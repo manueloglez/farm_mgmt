@@ -8,6 +8,8 @@ import SignInPage from './components/SignInPage';
 import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
 import NotFoundPage from './components/NotFoundPage';
+import FieldsList from './components/FieldsList';
+import Navbar from './components/Navbar';
 
 
 function App() {
@@ -26,15 +28,17 @@ function App() {
     setUser(null);
   }
   
-    useEffect(() => {
-      getCurrentUser();
-    }, []);
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
   
   return (
     <div className="App">
       <BrowserRouter>
+        <Navbar currentUser={user} onSignOut={onSignOut} />
         <Switch>
           <Route exact path="/" component={HomepageLayout}/>
+          <Route exact path='/fields' component={FieldsList}/> 
           <Route exact path='/sign_in' render={
             (routeProps) => <SignInPage {...routeProps} onSignIn={getCurrentUser}/>
           }/>

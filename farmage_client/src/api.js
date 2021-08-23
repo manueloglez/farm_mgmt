@@ -43,3 +43,49 @@ export const User = {
     })
   },
 }
+
+export const Field = {
+  index() {
+    return fetch(`${BASE_URL}/fields`, {
+      credentials: 'include'
+    }).then(res => res.json())
+  },
+  create(params) {
+    return fetch(`${BASE_URL}/fields`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({field: params})
+    }).then(res => {
+      return res.json()
+    })
+  },
+  show(id) {
+    return fetch(`${BASE_URL}/fields/${id}`, {
+      credentials: 'include'
+    }).then(res => res.json())
+  },
+  update(id, params) {
+    return fetch(`${BASE_URL}/fields/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({field: params})
+    }).then(res => {
+      return res.json()
+    })
+  },
+  destroy(id) {
+    return fetch(`${BASE_URL}/fields/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+  },
+}

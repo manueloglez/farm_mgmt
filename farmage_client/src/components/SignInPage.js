@@ -15,10 +15,9 @@ const SignInPage = (props) => {
     }
     Session.create(params).then(data => {
       if(data.status === 404) {
-        console.log('nel')
         setErrors([...errors, {message: 'Wrong email or Password'}])
       } else {
-        props.history.push('/')
+        props.history.push('/fields')
         if(typeof props.onSignIn === 'function'){
           props.onSignIn()
         }
@@ -27,7 +26,7 @@ const SignInPage = (props) => {
   }
   return(
     <main>
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid columns={2} textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>
             Log-in to your account
@@ -52,6 +51,9 @@ const SignInPage = (props) => {
           <Message>
             New to us? <Link to='/sign_up'>Sign Up</Link>
           </Message>
+        </Grid.Column>
+        <Grid.Column >
+          <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
         </Grid.Column>
       </Grid>
     </main>
