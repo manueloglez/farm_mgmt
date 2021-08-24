@@ -24,8 +24,14 @@ class Api::V1::PolygonsController < Api::ApplicationController
   end
 
   def index
-    field = Field.find params[:field_id]
-    polygons = field.polygons
+    p params
+    if params[:user_id]
+      user = User.find params[:user_id]
+      polygons = user.polygons
+    else
+      field = Field.find params[:field_id]
+      polygons = field.polygons
+    end
     render json: polygons
   end
 

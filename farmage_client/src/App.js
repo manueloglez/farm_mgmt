@@ -38,7 +38,9 @@ function App() {
         <Navbar currentUser={user} onSignOut={onSignOut} />
         <Switch>
           <Route exact path="/" component={HomepageLayout}/>
-          <Route exact path='/fields' component={FieldsList}/> 
+          <Route exact path='/fields' render={
+            (routeProps) => <FieldsList {...routeProps} user={user}/>
+          }/>
           <Route exact path='/sign_in' render={
             (routeProps) => <SignInPage {...routeProps} onSignIn={getCurrentUser}/>
           }/>

@@ -1,16 +1,19 @@
 import React, {useState, useEffect} from 'react'; 
-import { Field } from '../api';
+import { Field, Polygon } from '../api';
 import { List, Grid, Input } from 'semantic-ui-react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import FieldsMap from './FieldsMap';
 
-const FieldsList = () => {
+const FieldsList = ({user}) => {
   const [fields, setFields] = useState([]);
   const [search, setSearch] = useState('');
+  const [polygons, setPolygons] = useState([])
 
   useEffect(() => {
     Field.index().then(setFields);
-
-  }, []);
+    if (user) {
+      Polygon.index(user.id).then(setPolygons);
+    }
+  }, [user]);
 
   const filterFields = (field) => { 
     let fullString = field.name + field['crop_type'] + field.location
@@ -43,21 +46,10 @@ const FieldsList = () => {
         <Grid.Column 
           width={12}
           style={{padding: '0'}}>
-          <MapContainer style={{height: '90vh', margin: '0'}} center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[51.505, -0.09]}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer>
+            <FieldsMap polygons={polygons}/>
         </Grid.Column>
       </Grid.Row>
     </Grid>
-
   );
 }
 

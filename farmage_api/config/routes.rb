@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       end
       resource :session, only: [:create, :destroy]
       resources :users, only: [:show, :create] do
+        resources :polygons, only: [:index]
         get :current, on: :collection
       end
     end
