@@ -15,7 +15,7 @@ const FieldsMap = ({polygons}) => {
   }
 
   return (
-    <MapContainer style={{height: '90vh', margin: '0'}} center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+    <MapContainer style={{height: '95vh', margin: '0'}} center={[49.212367, -122.921688]} zoom={13} scrollWheelZoom={false}>
       <MapConsumer>
         {(map) => {
           let bounds = addWktToMap(map, polygons);
@@ -29,7 +29,7 @@ const FieldsMap = ({polygons}) => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[51.505, -0.09]}>
+      <Marker position={[49.212367, -122.921688]}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>

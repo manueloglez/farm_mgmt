@@ -10,6 +10,7 @@ import SignUpPage from './components/SignUpPage';
 import NotFoundPage from './components/NotFoundPage';
 import FieldsList from './components/FieldsList';
 import Navbar from './components/Navbar';
+import NewField  from './components/NewField';
 
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
           <Route exact path="/" component={HomepageLayout}/>
           <Route exact path='/fields' render={
             (routeProps) => <FieldsList {...routeProps} user={user}/>
+          }/>
+          <Route exact path='/fields/new' render={
+            (routeProps) => <NewField {...routeProps} user={user}/>
           }/>
           <Route exact path='/sign_in' render={
             (routeProps) => <SignInPage {...routeProps} onSignIn={getCurrentUser}/>
