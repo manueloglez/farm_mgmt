@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Button} from 'semantic-ui-react'
 import { Field } from '../api'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 
 const FieldForm = (props) => {
@@ -41,6 +41,7 @@ const FieldForm = (props) => {
         <input placeholder='Crop Type' name='crop_type'/>
       </Form.Field>
       <Button type='submit'>Submit</Button>
+      <Button><Link to='/fields'>Cancel</Link></Button>
     </Form>
   )
 }
