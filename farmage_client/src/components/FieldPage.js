@@ -3,13 +3,13 @@ import { Polygon, Field } from '../api';
 import { Grid } from 'semantic-ui-react';
 import FieldsMap from './FieldsMap';
 import PolygonList from './PolygonList';
-import { polygon } from 'leaflet';
 
 const FieldPage = ({user, match}) => {
   const [field, setField] = useState({});
   const [polygons, setPolygons] = useState([]);
   const [selectedPolygon, setSelectedPolygon] = useState();
   const [draw, setDraw] = useState(false);
+  const [geometry, setGeometry] = useState(null);
 
   useEffect(() => {
     Field.show(match.params.id).then(setField)
@@ -28,12 +28,14 @@ const FieldPage = ({user, match}) => {
           selectedPolygon={selectedPolygon} 
           setSelectedPolygon={setSelectedPolygon}
           setDraw={setDraw}
+          setGeometry={setGeometry}
+          geometry={geometry}
         />
       </Grid.Column>
       <Grid.Column 
         width={12}
         style={{padding: '0'}}>
-          <FieldsMap polygons={selectedPolygon ? [selectedPolygon] : []} draw={draw}/>
+          <FieldsMap setGeometry={setGeometry} geometry={geometry} polygons={selectedPolygon ? [selectedPolygon] : []} draw={draw}/>
       </Grid.Column>
     </Grid.Row>
   </Grid>

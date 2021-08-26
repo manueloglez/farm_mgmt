@@ -1,28 +1,35 @@
 import React from 'react';
 import {Form, Button} from 'semantic-ui-react'
-import { Field } from '../api'
+import { Field, Polygon } from '../api'
 import { useHistory, Link } from 'react-router-dom'
+import KmlBase from './KmlBase';
 
 
-const FieldForm = (props) => {
+
+const FieldForm = ({user, geometry, setGeometry}) => {
   const history = useHistory()
-  const handleSubmit = event => {
-    const { currentTarget } = event
-    event.preventDefault()
-
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const { currentTarget } = e
     const formData = new FormData(currentTarget)
-    const params = {
+    const fieldParams = {
       name: formData.get('name'),
       location: formData.get('location'),
       crop_type: formData.get('crop_type'),
-      user: props.user.id
+      user: user.id,
     }
-    Field.create(params).then(res => {
-      if (res?.id) {
-        history.push(`/fields/${res.id}`)
-      } else {
-        console.log(res)
-      } 
+    const polygonParams = {
+      classification: 'base',
+      geom: JSON.stringify(geometry),
+      user: user.id,
+    }
+    Field.create(fieldParams).then(field => {
+      Polygon.create(field.id, polygonParams).then(data => {
+        console.log(data)
+        history.push(`/fields/${field.id}`)
+      }).catch(err => {
+        console.log(err)
+      })
     })
   }
 
@@ -36,12 +43,16 @@ const FieldForm = (props) => {
         <label>Location</label>
         <input placeholder='Last Name' name='location'/>
       </Form.Field>
-      <Form.Field>
+      <Form.Field >
         <label>Crop Type</label>
         <input placeholder='Crop Type' name='crop_type'/>
       </Form.Field>
-      <Button type='submit'>Submit</Button>
-      <Button><Link to='/fields'>Cancel</Link></Button>
+      <KmlBase setGeometry={setGeometry}/>
+      <Button.Group style={{marginTop: '30px', width: '100%'}}>
+          <Button onClick={() => {history.push('/fields')}}>Cancel</Button>
+          <Button.Or />
+          <Button positive type='submit'>Create</Button>
+      </Button.Group>
     </Form>
   )
 }

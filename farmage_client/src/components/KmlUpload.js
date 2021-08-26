@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { kml } from '@tmcw/togeojson'
 import { DOMParser } from 'xmldom'
 import { Polygon } from '../api';
 
 
-const KmlUpload = ({toggleKml, user, field}) => {
-  let [geometry, setGeometry] = useState(null)
+const KmlUpload = ({toggleKml, user, field, setGeometry, geometry}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -17,7 +16,6 @@ const KmlUpload = ({toggleKml, user, field}) => {
       geom: JSON.stringify(geometry),
       user: user.id,
     }
-    console.log(params, field.id)
     Polygon.create(field.id, params).then(console.log).catch(console.error)
   }
 

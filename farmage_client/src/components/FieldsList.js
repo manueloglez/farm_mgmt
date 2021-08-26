@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'; 
 import { Field, Polygon } from '../api';
-import { List, Grid, Input } from 'semantic-ui-react';
+import { List, Grid, Input, Button, Icon } from 'semantic-ui-react';
 import FieldsMap from './FieldsMap';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +15,12 @@ const FieldsList = ({user}) => {
       Polygon.index(user.id).then(setPolygons);
     }
   }, [user]);
+
+  const handleDelete = (id) => {
+    Field.destroy(id).then(() => {
+      setFields(fields.filter(f => f.id !== id));
+    });
+  }
 
   const filterFields = (field) => { 
     let fullString = field.name + field['crop_type'] + field.location
@@ -33,18 +39,25 @@ const FieldsList = ({user}) => {
             }}
           />
           <List divided relaxed>
-            <List.Item>
+            <List.Item key={0}>
               <List.Icon name='plus circle' size='large' color='green' verticalAlign='middle' />
               <List.Content>
                 <List.Header><Link to='/fields/new'>New Field</Link></List.Header>
               </List.Content>
             </List.Item>
             {fields.filter(el => filterFields(el)).map(field => (
-              <List.Item>
-                <List.Icon name='map marker alternate' size='large' verticalAlign='middle' />
-                <List.Content>
-                  <List.Header as='a'><Link to={`/fields/${field.id}`}>{field.name}</Link></List.Header>
-                  <List.Description as='a'>{field.location} - {field.crop_type}</List.Description>
+              <List.Item key={field.id}>
+                <List.Content style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <div style={{display: 'flex'}}>
+                    <List.Icon name='map marker alternate' size='large' verticalAlign='middle' />
+                    <div>
+                      <List.Header as='a'><Link to={`/fields/${field.id}`}>{field.name}</Link></List.Header>
+                      <List.Description as='a'>{field.location} - {field.crop_type}</List.Description>
+                    </div>
+                  </div>
+                  <Button size='small' onClick={() => {handleDelete(field.id)}}>
+                    <Icon name='trash' />
+                  </Button>
                 </List.Content>
               </List.Item>
             ))}

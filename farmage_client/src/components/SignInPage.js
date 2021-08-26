@@ -1,10 +1,11 @@
-import React, {useState} from 'react' 
-import {Session} from '../api'
+import React, {useState, useEffect} from 'react' 
+import {Session, User} from '../api'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const SignInPage = (props) => {
   const [errors, setErrors] = useState([])
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const {currentTarget: form} = event
@@ -24,6 +25,15 @@ const SignInPage = (props) => {
       }
     })
   }
+
+  useEffect(() => {
+    User.current().then(user => {
+      if (user.id) {
+        props.history.push('/fields')
+      }
+    })
+  }, [])
+  
   return(
     <main>
       <Grid columns={2} textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>

@@ -43,11 +43,11 @@ function App() {
           <Route exact path='/fields' render={
             (routeProps) => <FieldsList {...routeProps} user={user}/>
           }/>
-          <Route exact path='/fields/:id' render={
-            (routeProps) => <FieldPage {...routeProps} user={user}/>
-          }/>
           <Route exact path='/fields/new' render={
             (routeProps) => <NewField {...routeProps} user={user}/>
+          }/>
+          <Route exact path='/fields/:id' render={
+            (routeProps) => <FieldPage {...routeProps} user={user}/>
           }/>
           <Route exact path='/sign_in' render={
             (routeProps) => <SignInPage {...routeProps} onSignIn={getCurrentUser}/>

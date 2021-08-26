@@ -3,7 +3,7 @@ import { Button, Icon, List, Header } from 'semantic-ui-react';
 import KmlUpload from './KmlUpload';
 import { Link } from 'react-router-dom';
 
-const PolygonList = ({polygons, field, user, selectedPolygon, setSelectedPolygon, setDraw}) => {
+const PolygonList = ({polygons, field, user, selectedPolygon, setSelectedPolygon, setDraw, setGeometry, geometry}) => {
   const [selected, setSelected] = useState(null);
   const [creating, setCreating] = useState(false);
 
@@ -29,7 +29,7 @@ const PolygonList = ({polygons, field, user, selectedPolygon, setSelectedPolygon
           <List.Icon name='plus circle' size='large' color='green' verticalAlign='middle' />
           <List.Content>
             <List.Header as='a' onClick={toggleKml}>New Polygon</List.Header>
-            {creating ? <KmlUpload user={user} field={field} toggleKml={toggleKml}/> : ''}
+            {creating ? <KmlUpload user={user} field={field} toggleKml={toggleKml} setGeometry={setGeometry} geometry={geometry}/> : ''}
           </List.Content>
         </List.Item>
         {polygons.map(polygon => (
