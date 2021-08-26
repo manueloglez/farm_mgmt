@@ -15,3 +15,7 @@
   padding: 10px;
   border-style: dashed
 }
+
+.sr-only {
+  display: none;
+}

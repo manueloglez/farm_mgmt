@@ -1,10 +1,11 @@
-import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup, MapConsumer } from 'react-leaflet'
-import L from 'leaflet';
+import React, {useEffect} from 'react'
+import { MapContainer, TileLayer, Marker, Popup, MapConsumer, FeatureGroup } from 'react-leaflet'
+import L, { circle, marker } from 'leaflet';
 import omnivore from 'leaflet-omnivore';
+import { EditControl } from "react-leaflet-draw"
 
 
-const FieldsMap = ({polygons}) => {
+const FieldsMap = ({polygons, draw = false}) => {
   const addWktToMap = (map, polygons) => {
     const bounds = L.latLngBounds([]);
     for(let polygon of polygons) {
@@ -14,8 +15,40 @@ const FieldsMap = ({polygons}) => {
     return bounds
   }
 
+  useEffect(() => {
+    console.log(draw)
+  }, [draw])
+
   return (
     <MapContainer style={{height: '95vh', margin: '0'}} center={[49.212367, -122.921688]} zoom={13} scrollWheelZoom={false}>
+      <FeatureGroup>
+        {!draw ? 
+          <EditControl
+            position='topleft'
+            draw={{
+              rectangle: false,
+              circle: false,
+              marker: false,
+              polyline: false,
+              circlemarker: false,
+              polygon: false,
+            }}
+            edit={{
+              remove: false,
+              edit: false,
+            }}
+          /> : 
+          <EditControl
+          position='topleft'
+          draw={{
+            rectangle: false,
+            circle: false,
+            marker: false,
+            polyline: false,
+            circlemarker: false,
+          }}
+        /> }
+      </FeatureGroup> 
       <MapConsumer>
         {(map) => {
           let bounds = addWktToMap(map, polygons);

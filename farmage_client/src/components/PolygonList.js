@@ -3,12 +3,13 @@ import { Button, Icon, List, Header } from 'semantic-ui-react';
 import KmlUpload from './KmlUpload';
 import { Link } from 'react-router-dom';
 
-const PolygonList = ({polygons, field, user, selectedPolygon, setSelectedPolygon}) => {
+const PolygonList = ({polygons, field, user, selectedPolygon, setSelectedPolygon, setDraw}) => {
   const [selected, setSelected] = useState(null);
   const [creating, setCreating] = useState(false);
 
   const toggleKml = () => {
     setCreating(!creating);
+    setDraw(!creating)
   }
 
   useEffect(() => {

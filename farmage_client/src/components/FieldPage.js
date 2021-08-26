@@ -9,6 +9,7 @@ const FieldPage = ({user, match}) => {
   const [field, setField] = useState({});
   const [polygons, setPolygons] = useState([]);
   const [selectedPolygon, setSelectedPolygon] = useState();
+  const [draw, setDraw] = useState(false);
 
   useEffect(() => {
     Field.show(match.params.id).then(setField)
@@ -22,12 +23,17 @@ const FieldPage = ({user, match}) => {
   <Grid>
     <Grid.Row>
       <Grid.Column width={4}style={{padding: '10px 25px 0 30px'}}>
-        <PolygonList polygons={polygons} field={field} user={user} selectedPolygon={selectedPolygon} setSelectedPolygon={setSelectedPolygon}/>
+        <PolygonList 
+          polygons={polygons} field={field} user={user} 
+          selectedPolygon={selectedPolygon} 
+          setSelectedPolygon={setSelectedPolygon}
+          setDraw={setDraw}
+        />
       </Grid.Column>
       <Grid.Column 
         width={12}
         style={{padding: '0'}}>
-          <FieldsMap polygons={selectedPolygon ? [selectedPolygon] : []}/>
+          <FieldsMap polygons={selectedPolygon ? [selectedPolygon] : []} draw={draw}/>
       </Grid.Column>
     </Grid.Row>
   </Grid>
