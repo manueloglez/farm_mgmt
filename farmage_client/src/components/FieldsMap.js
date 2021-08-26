@@ -26,8 +26,9 @@ const FieldsMap = ({polygons}) => {
         }}
       </MapConsumer>
       <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://osm.org/copyright">Google Maps</a>'
+        url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}'
+        subdomains={['mt0','mt1','mt2','mt3']}
       />
       <Marker position={[49.212367, -122.921688]}>
         <Popup>

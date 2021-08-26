@@ -4,4 +4,6 @@ class Polygon < ApplicationRecord
 
   validates :geom, presence: true
 
+  attribute :geom, :st_polygon, srid: 4326, geographic: true
+
 end

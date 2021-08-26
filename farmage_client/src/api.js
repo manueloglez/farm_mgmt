@@ -96,6 +96,11 @@ export const Polygon = {
       credentials: 'include'
     }).then(res => res.json())
   },
+  indexByField(id) {
+    return fetch(`${BASE_URL}/fields/${id}/polygons`, {
+      credentials: 'include'
+    }).then(res => res.json())
+  },
   create(id, params) {
     return fetch(`${BASE_URL}/fields/${id}/polygons`, {
       method: 'POST',
