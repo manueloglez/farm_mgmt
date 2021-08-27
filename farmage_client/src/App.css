@@ -1,9 +1,14 @@
-.App {
-  overflow: hidden;
+.isActive {
+  background-color: #00b5ad;
 }
 
-.isActive {
-  background-color: #ff00ff;
+.isInactive {
+  background-color: #dad8d8;
+}
+
+.isInactive:hover {
+  border: 0 solid #498367;
+  background-color: #498367;
 }
 
 .kml-upload {

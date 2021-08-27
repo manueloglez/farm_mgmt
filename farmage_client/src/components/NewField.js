@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { List, Grid, Input } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import FieldsMap from './FieldsMap';
 import FieldForm from './FieldForm'
  

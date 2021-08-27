@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Button,
@@ -10,7 +10,11 @@ import {
   Segment,
 } from 'semantic-ui-react'
 
-const Homepage = () => (
+const Homepage = (props) => {
+  useEffect(() => {
+    console.log(props)
+  }, [])
+  return (
   <>
   <Segment inverted
             textAlign='center'
@@ -22,33 +26,45 @@ const Homepage = () => (
         content='Farmage'
         inverted
         style={{
-          fontSize: '4em',
-          fontWeight: 'normal',
+          fontSize: '6em',
+          fontWeight: 600,
           marginBottom: 0,
-          marginTop: '3em',
+          marginTop: '2em',
         }}
       />
       <Header
         as='h2'
-        content='Do whatever you want when you want to.'
+        content='Keeping your fields organized.'
         inverted
         style={{
-          fontSize: '1.7em',
+          fontSize: '2em',
           fontWeight: 'normal',
-          marginTop: '1.5em',
+          marginTop: '1em',
+          marginBottom: '1em'
         }}
       />
-      <Button primary size='huge'>
-        <Link to='/sign_in'>
-        Log in
-        </Link>
-      </Button>
-      <Button primary size='huge'>
-      <Link to='/sign_up'>
-        Get Started
-        <Icon name='right arrow' />
-        </Link>
-      </Button>
+      { props.user ? 
+        <Link>
+          <Link to='/fields'>
+            <Button color='teal' size='huge'>
+              Go to your fields
+            </Button>
+          </Link>
+        </Link> : 
+        <> 
+          <Link to='/sign_in'>
+            <Button color='teal' size='huge'>
+              Log in
+            </Button>
+          </Link>
+          <Link to='/sign_up'>
+            <Button color='teal' size='huge'>
+              Get Started
+              <Icon name='right arrow' />
+            </Button>
+          </Link>
+        </>
+      }
     </Container>
   </Segment>
 
@@ -72,7 +88,6 @@ const Homepage = () => (
           horizontal
           style={{ margin: '3em 0em', textTransform: 'uppercase' }}
         >
-          <a href='#'>Case Studies</a>
         </Divider>
 
         <Header as='h3' style={{ fontSize: '2em' }}>
@@ -100,6 +115,6 @@ const Homepage = () => (
       </Container>
     </Segment>
   </>
-)
+)}
 
 export default Homepage

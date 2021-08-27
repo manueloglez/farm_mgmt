@@ -2,12 +2,14 @@ import React, {useState, useEffect} from 'react';
 import { Field, Polygon } from '../api';
 import { List, Grid, Input, Button, Icon } from 'semantic-ui-react';
 import FieldsMap from './FieldsMap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 
 const FieldsList = ({user}) => {
   const [fields, setFields] = useState([]);
   const [search, setSearch] = useState('');
   const [polygons, setPolygons] = useState([])
+  const history = useHistory()
 
   useEffect(() => {
     Field.index().then(setFields);
@@ -17,9 +19,11 @@ const FieldsList = ({user}) => {
   }, [user]);
 
   const handleDelete = (id) => {
-    Field.destroy(id).then(() => {
-      setFields(fields.filter(f => f.id !== id));
-    });
+    if(window.confirm('Are you sure you want to delete this item?')){
+      Field.destroy(id).then(() => {
+        setFields(fields.filter(f => f.id !== id));
+      });
+    }
   }
 
   const filterFields = (field) => { 
@@ -38,27 +42,30 @@ const FieldsList = ({user}) => {
               setSearch(data.value);
             }}
           />
-          <List divided relaxed>
-            <List.Item key={0}>
-              <List.Icon name='plus circle' size='large' color='green' verticalAlign='middle' />
-              <List.Content>
-                <List.Header><Link to='/fields/new'>New Field</Link></List.Header>
+          <List relaxed>
+            <List.Item className='isInactive' key={0} onClick={() => {history.push('/fields/new')}} verticalAlign='middle' 
+            style={{padding: '5px', borderRadius:'5px', margin: '5px 0'}}>
+              <List.Icon name='plus circle' style={{fontSize: '2em'}} color='teal' verticalAlign='middle' />
+              <List.Content verticalAlign='middle'>
+                <List.Header as='h3'>New Field</List.Header>
               </List.Content>
             </List.Item>
             {fields.filter(el => filterFields(el)).map(field => (
-              <List.Item key={field.id}>
+              <List.Item className='isInactive' key={field.id} style={{padding: '5px', borderRadius:'5px', margin: '5px 0'}}>
+                <Link to={`/fields/${field.id}`}>
                 <List.Content style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                  <div style={{display: 'flex'}}>
-                    <List.Icon name='map marker alternate' size='large' verticalAlign='middle' />
-                    <div>
-                      <List.Header as='a'><Link to={`/fields/${field.id}`}>{field.name}</Link></List.Header>
-                      <List.Description as='a'>{field.location} - {field.crop_type}</List.Description>
+                  <div style={{display: 'flex', alignItems: 'center'}}>
+                    <List.Icon name='map marker alternate' size='large' verticalAlign='middle' style={{marginLeft: '5px'}} />
+                    <div style={{marginLeft: '10px'}}>
+                      <List.Header>{field.name}</List.Header>
+                      <List.Description>{field.location} - {field.crop_type}</List.Description>
                     </div>
                   </div>
-                  <Button size='small' onClick={() => {handleDelete(field.id)}}>
-                    <Icon name='trash' />
+                  <Button size='tiny' onClick={() => {handleDelete(field.id)}}>
+                    <Icon name='trash' style={{margin: '0'}}/>
                   </Button>
                 </List.Content>
+                </Link>
               </List.Item>
             ))}
           </List>

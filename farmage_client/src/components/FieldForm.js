@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Button} from 'semantic-ui-react'
 import { Field, Polygon } from '../api'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import KmlBase from './KmlBase';
 
 

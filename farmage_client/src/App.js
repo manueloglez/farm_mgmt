@@ -5,7 +5,6 @@ import  {User} from './api'
 import HomepageLayout from './components/Homepage';
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import SignInPage from './components/SignInPage';
-import AuthRoute from './components/AuthRoute';
 import SignUpPage from './components/SignUpPage';
 import NotFoundPage from './components/NotFoundPage';
 import FieldsList from './components/FieldsList';
@@ -39,7 +38,9 @@ function App() {
       <BrowserRouter>
         <Navbar currentUser={user} onSignOut={onSignOut} />
         <Switch>
-          <Route exact path="/" component={HomepageLayout}/>
+          <Route exact path='/' render={
+            (routeProps) => <HomepageLayout {...routeProps} user={user}/>
+          }/>
           <Route exact path='/fields' render={
             (routeProps) => <FieldsList {...routeProps} user={user}/>
           }/>

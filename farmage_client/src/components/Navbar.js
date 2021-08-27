@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Input, Menu, Image, Header } from 'semantic-ui-react'
+import React from 'react'
+import { Menu, Header } from 'semantic-ui-react'
 import {Session} from '../api'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ const Navbar = ({currentUser, onSignOut}) =>  {
       style={{marginBottom:0}}>
         <Menu.Item>
           <Link to="/fields">
-            <Header as='h1' style={{margin:0}}> 
+            <Header as='h1' style={{margin:0}} color='teal'> 
               Farmage
             </Header>
           </Link>
@@ -31,6 +31,7 @@ const Navbar = ({currentUser, onSignOut}) =>  {
             </Header>
           </Menu.Item>
           <Menu.Item
+          className='logout-btn'
           name='logout'
           onClick={handleSignOut}
           />

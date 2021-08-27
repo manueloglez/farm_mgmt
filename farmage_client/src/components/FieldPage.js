@@ -25,6 +25,7 @@ const FieldPage = ({user, match}) => {
       <Grid.Column width={4}style={{padding: '10px 25px 0 30px'}}>
         <PolygonList 
           polygons={polygons} field={field} user={user} 
+          setPolygons={setPolygons}
           selectedPolygon={selectedPolygon} 
           setSelectedPolygon={setSelectedPolygon}
           setDraw={setDraw}

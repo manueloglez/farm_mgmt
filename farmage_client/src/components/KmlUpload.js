@@ -3,9 +3,11 @@ import { Form, Button } from 'semantic-ui-react';
 import { kml } from '@tmcw/togeojson'
 import { DOMParser } from 'xmldom'
 import { Polygon } from '../api';
+import { useHistory } from 'react-router';
 
 
 const KmlUpload = ({toggleKml, user, field, setGeometry, geometry}) => {
+  const history = useHistory()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -16,7 +18,10 @@ const KmlUpload = ({toggleKml, user, field, setGeometry, geometry}) => {
       geom: JSON.stringify(geometry),
       user: user.id,
     }
-    Polygon.create(field.id, params).then(console.log).catch(console.error)
+    Polygon.create(field.id, params).then((res) => {
+      history.push(`/fields`)
+    })
+    .catch(console.error)
   }
 
   const readKml = (event) => {

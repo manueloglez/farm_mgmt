@@ -1,13 +1,9 @@
-import React, {useState} from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import React from 'react';
 import { kml } from '@tmcw/togeojson'
 import { DOMParser } from 'xmldom'
-import { Field, Polygon } from '../api';
-import { useHistory } from 'react-router-dom'
 
 
 const KmlBase = ({setGeometry}) => {
-  const history = useHistory()
 
   const readKml = (event) => {
     const reader = new FileReader();
