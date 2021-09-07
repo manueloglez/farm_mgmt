@@ -1,5 +1,9 @@
 import React,{ useState, useEffect } from 'react';
+import * as L from 'leaflet';
+
 import 'semantic-ui-css/semantic.min.css'
+import '@geoman-io/leaflet-geoman-free'
+import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
 import './App.css';
 import  {User} from './api'
 import HomepageLayout from './components/Homepage';

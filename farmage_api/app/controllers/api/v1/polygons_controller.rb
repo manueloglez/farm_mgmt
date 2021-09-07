@@ -5,7 +5,11 @@ class Api::V1::PolygonsController < Api::ApplicationController
   def create
     ## factory = RGeo::Cartesian.preferred_factory srid: 4326
     full_params = polygon_params
-    full_params[:geom] = RGeo::GeoJSON.decode(params[:geom]).as_text
+    if RGeo::GeoJSON.decode(params[:geom]).is_a?(String)
+      full_params[:geom] = RGeo::GeoJSON.decode(params[:geom])
+    else 
+      full_params[:geom] = RGeo::GeoJSON.decode(params[:geom]).as_text
+    end
     p full_params[:geom]
     polygon = Polygon.new full_params
     polygon.field = Field.find params[:field_id]
