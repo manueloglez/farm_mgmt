@@ -73,7 +73,7 @@ const FieldsList = ({user}) => {
         <Grid.Column 
           width={12}
           style={{padding: '0'}}>
-            <FieldsMap polygons={polygons}/>
+            <FieldsMap polygons={polygons} preview={true}/>
         </Grid.Column>
       </Grid.Row>
     </Grid>

@@ -1,12 +1,22 @@
 import React, {useEffect, useState} from 'react'
-import { MapContainer, TileLayer, Marker, Popup, MapConsumer, FeatureGroup } from 'react-leaflet'
+import { Link, Router } from 'react-router-dom';
+import { MapContainer, TileLayer, MapConsumer, FeatureGroup } from 'react-leaflet'
 import * as L from 'leaflet';
 import omnivore from 'leaflet-omnivore';
+import ReactDOMServer from 'react-dom/server';
 
 
-const FieldsMap = ({polygons, draw = false, geometry, setGeometry}) => {
+const FieldsMap = ({polygons, draw = false, geometry, setGeometry, preview, }) => {
   const [editableFG, setEditableFG] = useState(null);
   const [map, setMap] = useState(null);
+
+  const Popup = ({ polygon }) => {
+    return (
+      <div>
+        <a href={`/fields/${polygon.field_id}`}>Visit field</a>
+      </div>
+    );
+  };
 
   const onFeatureGroupReady = reactFGref => {
     console.log('FeatureGroup ready', reactFGref);
@@ -22,9 +32,16 @@ const FieldsMap = ({polygons, draw = false, geometry, setGeometry}) => {
     const bounds = L.latLngBounds([]);
 
     for(let polygon of polygons) {
-      let p = omnivore.wkt.parse(polygon.geom).addTo(map);
-      console.log('polygon added');
-      bounds.extend(p.getBounds().getCenter())
+      if ((preview && polygon.classification === 'base') || !preview) {
+        let p = omnivore.wkt.parse(polygon.geom).addTo(map);
+        if (preview) {
+          const popupContent = ReactDOMServer.renderToString(
+            <Popup polygon={polygon} />
+          );
+          p.bindPopup(popupContent)
+        }
+        bounds.extend(p.getBounds().getCenter())
+      }
     }
     return bounds
   }

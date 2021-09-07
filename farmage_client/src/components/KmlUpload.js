@@ -19,7 +19,7 @@ const KmlUpload = ({toggleKml, user, field, setGeometry, geometry}) => {
       user: user.id,
     }
     Polygon.create(field.id, params).then((res) => {
-      history.push(`/fields`)
+      window.location.reload()
     })
     .catch(console.error)
   }
