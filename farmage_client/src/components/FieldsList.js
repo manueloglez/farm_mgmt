@@ -52,8 +52,8 @@ const FieldsList = ({user}) => {
             </List.Item>
             {fields.filter(el => filterFields(el)).map(field => (
               <List.Item className='isInactive' key={field.id} style={{padding: '5px', borderRadius:'5px', margin: '5px 0'}}>
-                <Link to={`/fields/${field.id}`}>
                 <List.Content style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Link to={`/fields/${field.id}`}>
                   <div style={{display: 'flex', alignItems: 'center'}}>
                     <List.Icon name='map marker alternate' size='large' verticalAlign='middle' style={{marginLeft: '5px'}} />
                     <div style={{marginLeft: '10px'}}>
@@ -61,11 +61,11 @@ const FieldsList = ({user}) => {
                       <List.Description>{field.location} - {field.crop_type}</List.Description>
                     </div>
                   </div>
+                </Link>
                   <Button size='tiny' onClick={() => {handleDelete(field.id)}}>
                     <Icon name='trash' style={{margin: '0'}}/>
                   </Button>
                 </List.Content>
-                </Link>
               </List.Item>
             ))}
           </List>

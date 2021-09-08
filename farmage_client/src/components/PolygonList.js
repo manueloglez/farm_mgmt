@@ -45,6 +45,10 @@ const PolygonList = ({polygons, field, user, selectedPolygon, setSelectedPolygon
     download(`${field.name} - ${polygon.classification}.kml`, kmlParsed)
   }
 
+  const handleEdit = () => {
+    setDraw(true)
+  }
+
   return (
     <>
       <Link to='/fields'>
@@ -76,6 +80,9 @@ const PolygonList = ({polygons, field, user, selectedPolygon, setSelectedPolygon
                 </div>
               </div>
               <div>
+                <Button size='tiny' onClick={() => {handleEdit()}}>
+                  <Icon name='pencil' style={{margin: '0'}}/>
+                </Button>
                 <Button size='tiny' onClick={() => {handleDownload(polygon, field)}}>
                   <Icon name='download' style={{margin: '0'}}/>
                 </Button>
