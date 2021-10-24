@@ -3,7 +3,16 @@ class Api::V1::PolygonsController < Api::ApplicationController
   before_action :authenticate_user!
 
   def create
-    polygon = Polygon.new polygon_params
+    ## factory = RGeo::Cartesian.preferred_factory srid: 4326
+    full_params = polygon_params
+    if RGeo::GeoJSON.decode(params[:geom]).is_a?(String)
+      full_params[:geom] = RGeo::GeoJSON.decode(params[:geom])
+    else 
+      full_params[:geom] = RGeo::GeoJSON.decode(params[:geom]).as_text
+    end
+    p full_params[:geom]
+    polygon = Polygon.new full_params
+    polygon.field = Field.find params[:field_id]
     polygon.user = current_user
     if polygon.save
       render json: {id: polygon.id}
@@ -24,8 +33,14 @@ class Api::V1::PolygonsController < Api::ApplicationController
   end
 
   def index
-    field = Field.find params[:field_id]
-    polygons = field.polygons
+    p params
+    if params[:user_id]
+      user = User.find params[:user_id]
+      polygons = user.polygons
+    else
+      field = Field.find params[:field_id]
+      polygons = field.polygons
+    end
     render json: polygons
   end
 
@@ -66,6 +81,6 @@ class Api::V1::PolygonsController < Api::ApplicationController
   end
 
   def polygon_params
-    params.require(:polygon).permit(:geom, :classification, :commentary, :area)
+    params.require(:polygon).permit(:classification, :commentary, :area)
   end
 end

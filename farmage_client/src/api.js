@@ -37,7 +37,7 @@ export const User = {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({user: params})
+      body: JSON.stringify(params)
     }).then(res => {
       return res.json()
     })
@@ -57,7 +57,7 @@ export const Field = {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({field: params})
+      body: JSON.stringify(params)
     }).then(res => {
       return res.json()
     })
@@ -74,13 +74,64 @@ export const Field = {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({field: params})
+      body: JSON.stringify(params)
     }).then(res => {
       return res.json()
     })
   },
   destroy(id) {
     return fetch(`${BASE_URL}/fields/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+  },
+}
+
+export const Polygon = {
+  index(id) {
+    return fetch(`${BASE_URL}/users/${id}/polygons`, {
+      credentials: 'include'
+    }).then(res => res.json())
+  },
+  indexByField(id) {
+    return fetch(`${BASE_URL}/fields/${id}/polygons`, {
+      credentials: 'include'
+    }).then(res => res.json())
+  },
+  create(id, params) {
+    return fetch(`${BASE_URL}/fields/${id}/polygons`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }).then(res => {
+      return res.json()
+    })
+  },
+  show(id) {
+    return fetch(`${BASE_URL}/polygons/${id}`, {
+      credentials: 'include'
+    }).then(res => res.json())
+  },
+  update(id, params) {
+    return fetch(`${BASE_URL}/polygons/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }).then(res => {
+      return res.json()
+    })
+  },
+  destroy(id) {
+    return fetch(`${BASE_URL}/polygons/${id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
